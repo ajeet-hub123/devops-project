@@ -1,0 +1,28 @@
+
+name: DevOps CI Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify website file
+        run: test -f index.html
+
+      - name: Verify Dockerfile
+        run: test -f Dockerfile
+
+      - name: Test website content
+        run: grep -q "My First DevOps Project" index.html
+
+      - name: CI success
+        run: echo "All DevOps project checks passed!"
